@@ -21,7 +21,7 @@ function rand(a,b){
     return a + Math.random() * (b-a);
 }
 
-function clanp(x,min,max){
+function clamp(x,min,max){
     if (x > max){
         return max;
     } else if (x<min){
@@ -113,7 +113,9 @@ function normalizeScreenAxes(accelX , accelY){
 
 function onMotion(e){
     const acceleration = e.accelerationIncludingGravity;
+    console.log(1)
     if (!acceleration) return;
+    console.log(2)
 
     const accelX= -(acceleration.x ?? 0)* osSign;
     const accelY = (acceleration.y ?? 0)* osSign;
@@ -124,7 +126,7 @@ function onMotion(e){
     );
 
     tiltX = clamp(virtualAccelX/9.8,-1,1);
-    tiltY = clanp(virtualAccelY/9.8,-1,1);
+    tiltY = clamp(virtualAccelY/9.8,-1,1);
 
     if (debugElement !== null){
         debugElement.textContent = `OS:${isIOS ? 'iOS' : isAndroid ? 'Android' : 'Other'}andgle:${screenAngle} tiltX:${tiltX.toFixed(2)}tiltY:${tiltY.toFixed(2)}`;
